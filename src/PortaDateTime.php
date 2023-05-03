@@ -119,7 +119,7 @@ class PortaDateTime extends DateTime {
         } elseif ($timezone instanceof \DateTimeZone) {
             return $timezone;
         } else {
-            throw new ErrorException("Timezone must be a string or DateTimeZone object");
+            throw new InvalidArgumentException("Timezone must be a string or a DateTimeZone object");
         }
     }
 

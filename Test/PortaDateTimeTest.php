@@ -27,7 +27,7 @@ class PortaDateTimeTest extends \PHPUnit\Framework\TestCase {
     }
 
     public function testCreateException() {
-        $this->expectException(\ErrorException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $t1 = new \PortaDateTime(self::LOCAL_DATETIME, []);
     }
 
