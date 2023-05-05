@@ -13,7 +13,7 @@ PortaDateTime class exptends standatd DateTime class to provide specific methods
 In the Composer storage. Just add proper require section:
 
     "require": {
-        "pavlyuts/porta-datetime": "^1.0"
+        "pavlyuts/porta-datetime": "^0.1"
     }
 
 ## Dependencies
