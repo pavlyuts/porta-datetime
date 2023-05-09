@@ -51,11 +51,11 @@ class PortaDateTimeTest extends \PHPUnit\Framework\TestCase {
                 \PortaDateTime::createFromPortaString(self::DATETIME, self::ZONE)
                         ->format(\PortaDateTime::PORTA_DATETIME));
     }
-    
+
     public function testCreateFromDateString() {
         $this->assertEquals(self::FIRST_MOMENT,
                 \PortaDateTime::createFromPortaDateString(self::DATE, self::ZONE)
-                ->formatPorta());
+                        ->formatPorta());
     }
 
     public function testCreateAndFormat() {
@@ -64,5 +64,10 @@ class PortaDateTimeTest extends \PHPUnit\Framework\TestCase {
         $this->assertEquals(self::DATETIME, $pt->formatPorta());
         $this->assertEquals(self::DATETIME, \PortaDateTime::formatDateTime($t));
     }
-    
+
+    public function testProrate() {
+        $t = new \PortaDateTime(self::LOCAL_DATETIME, self::ZONE);
+        $this->assertEquals((130 * 12 / 31), $t->prorateTillEndOfMonth(130));
+    }
+
 }

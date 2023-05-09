@@ -83,6 +83,17 @@ class PortaDateTime extends DateTime {
     }
 
     /**
+     * Calculates prorated value from given date till the end of the month
+     * 
+     * @param float $fee - basic rate to prorate
+     * @return float - prorated vlue
+     */
+    public function prorateTillEndOfMonth(float $fee): float {
+        $days = (int) $this->format('t');
+        return round($days - $this->format('j') + 1) * $fee / $days;
+    }
+
+    /**
      * Creates object from Portaone datetime string and shift the timezone to desired.
      * Please, mind the billing always returns datetime in UTC.
      * 
