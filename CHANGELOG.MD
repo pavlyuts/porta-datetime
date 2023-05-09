@@ -1,4 +1,6 @@
 # Changelog
+## 0.3
+- Add inFuture() 
 ## 0.2
 - Add setFirstMoment() and setLastMoment() 
 - Add prorateTillEndOfMonth()

@@ -92,6 +92,15 @@ class PortaDateTime extends DateTime {
         $days = (int) $this->format('t');
         return round($days - $this->format('j') + 1) * $fee / $days;
     }
+    
+    /**
+     * Checks if the datetime on the future or not
+     * 
+     * @return bool true if datetime in the future
+     */
+    public function inFuture():bool {
+        return $this->getTimestamp() > (new DateTime())->getTimestamp();
+    }
 
     /**
      * Creates object from Portaone datetime string and shift the timezone to desired.

@@ -69,5 +69,12 @@ class PortaDateTimeTest extends \PHPUnit\Framework\TestCase {
         $t = new \PortaDateTime(self::LOCAL_DATETIME, self::ZONE);
         $this->assertEquals((130 * 12 / 31), $t->prorateTillEndOfMonth(130));
     }
+    
+    public function testInFuture() {
+        $t1 = new \PortaDateTime(self::LOCAL_DATETIME, self::ZONE);
+        $this->assertFalse($t1->inFuture());
+        $t2 = new \PortaDateTime('first day of next month', self::ZONE);
+        $this->assertTrue($t2->inFuture());
+    }
 
 }
