@@ -33,13 +33,33 @@ class PortaDateTime extends DateTime {
     }
 
     /**
+     * Set time to the first moment of the day in the current timezone 
+     * 
+     * @return PortaDateTime self object for chaining
+     */
+    public function setFirstMoment(): PortaDateTime {
+        $this->setTime(0, 0, 0);
+        return $this;
+    }
+
+    /**
+     * Set time to the last moment of the day (23:59:59) in the current timezone 
+     * 
+     * @return PortaDateTime self object for chaining
+     */
+    public function setLastMoment(): PortaDateTime {
+        $this->setTime(23, 59, 59);
+        return $this;
+    }
+
+    /**
      * Prepares 'last moment' like 23:59:59 at the defined timezone and then format 
      * it as Portabilling datetime string in UTC timezone
      * 
      * @return string
      */
     public function getLastMomentString(): string {
-        return $this->getMoment(23, 59, 59)->formatPorta();
+        return (clone $this)->setLastMoment()->formatPorta();
     }
 
     /**
@@ -49,7 +69,7 @@ class PortaDateTime extends DateTime {
      * @return string
      */
     public function getFirstMomentString(): string {
-        return $this->getMoment(0, 0, 0)->formatPorta();
+        return (clone $this)->setFirstMoment()->formatPorta();
     }
 
     /**
@@ -59,7 +79,7 @@ class PortaDateTime extends DateTime {
      * @return string
      */
     public function getFirstMomentNextDayString(): string {
-        return $this->getMoment(0, 0, 0)->modify('+1 day')->formatPorta();
+        return (clone $this)->modify('+1 day')->setFirstMoment()->formatPorta();
     }
 
     /**
@@ -107,10 +127,6 @@ class PortaDateTime extends DateTime {
         return $datetime
                         ->setTimezone(new DateTimeZone('UTC'))
                         ->format(self::PORTA_DATETIME);
-    }
-
-    protected function getMoment($h, $m, $s): PortaDateTime {
-        return (clone $this)->setTime($h, $m, $s);
     }
 
     protected static function prepreTimezone($timezone = 'UTC'): DateTimeZone {
