@@ -53,6 +53,18 @@ class PortaDateTime extends DateTime {
     }
 
     /**
+     * Set date-time to the first moment (00:00:00) of the next month relative to 
+     * the current DateTime value and timezone.
+     * 
+     * @return PortaDateTime self object for chaining
+     */
+    public function setFirstMomentOfNextMonth(): PortaDateTime {
+        $this->setFirstMoment();
+        $this->modify('first day of next month');
+        return $this;
+    }
+
+    /**
      * Prepares 'last moment' like 23:59:59 at the defined timezone and then format 
      * it as Portabilling datetime string in UTC timezone
      * 
@@ -92,14 +104,34 @@ class PortaDateTime extends DateTime {
         $days = (int) $this->format('t');
         return round($days - $this->format('j') + 1) * $fee / $days;
     }
-    
+
     /**
      * Checks if the datetime on the future or not
      * 
      * @return bool true if datetime in the future
      */
-    public function inFuture():bool {
-        return $this->getTimestamp() > (new DateTime())->getTimestamp();
+    public function inFuture(): bool {
+        return $this > (new DateTime());
+    }
+
+    /**
+     * Checks if the datetime on the future or not
+     * 
+     * @return bool true if datetime in the future
+     */
+    public function inPast(): bool {
+        return $this < (new DateTime());
+    }
+
+    /**
+     * Return true if object datetime is between $from and $to
+     * 
+     * @param PortaDateTime|null $from
+     * @param PortaDateTime|null $to
+     * @return bool
+     */
+    public function between(?DateTimeInterface $from, ?DateTimeInterface $to): bool {
+        return (is_null($from) || ($this >= $from)) && (is_null($to) || ($this <= $to));
     }
 
     /**
@@ -119,7 +151,7 @@ class PortaDateTime extends DateTime {
      * Creates object from Portaone date-only string and the time is set to zero 
      * in desired timezone.
      * 
-     * @param string $datetime - the date string as you got it form billing
+     * @param string $date - the date string as you got it form billing
      * @param type $timezone - target timezone string or object
      * @return PortaDateTime
      */
@@ -139,7 +171,8 @@ class PortaDateTime extends DateTime {
     }
 
     /**
-     * Returns datetime string in UTC format for DateTime object
+     * Returns Portaone-format datetime string in UTC for DateTime object
+     * 
      * @param DateTime $datetime
      * @return string
      */
