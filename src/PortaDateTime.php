@@ -171,13 +171,13 @@ class PortaDateTime extends DateTime {
     }
 
     /**
-     * Returns Portaone-format datetime string in UTC for DateTime object
+     * Returns Portaone-format datetime string in UTC for DateTimeInterface
      * 
-     * @param DateTime $datetime
+     * @param DateTimeInterface $datetime
      * @return string
      */
-    public static function formatDateTime(DateTime $datetime): string {
-        return $datetime
+    public static function formatDateTime(DateTimeInterface $datetime): string {
+        return self::createPortaFromInterface($datetime)
                         ->setTimezone(new DateTimeZone('UTC'))
                         ->format(self::PORTA_DATETIME);
     }
