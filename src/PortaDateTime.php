@@ -163,7 +163,7 @@ class PortaDateTime extends DateTime {
      * Create PortaDateTime object from regular DateTimeInterface object
      * 
      * @param \DateTimeInterface $object
-     * @return \DateTime
+     * @return \PotrtaDateTime
      */
     public static function createPortaFromInterface(\DateTimeInterface $object): PortaDateTime {
         return (new PortaDateTime('now', $object->getTimezone()))
